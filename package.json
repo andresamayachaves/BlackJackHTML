@@ -1,0 +1,19 @@
+{
+  "name": "blackjack-2",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Blackjack game with HTML",
+  "main": "Blackjack2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "gituhub.com/andresamayachaves/BlackJackHTML"
+  },
+  "keywords": [
+    "Blackjack"
+  ],
+  "author": "Andres Amaya Chaves",
+  "license": "ISC"
+}
