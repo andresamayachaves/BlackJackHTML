@@ -179,11 +179,9 @@ function start(){
   
 function startGame(){
   clearLines();
-  fillDealerDeck();
-  sumElem.textContent = dealerDeck[1].value;
+  fillDealerDeck();  
   drawACard();
   drawACard();
-
   showCards(inHandCards);
   check();  
 }
