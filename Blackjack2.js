@@ -63,10 +63,11 @@ function admitToClub(){
 function showCards(cardsToShow){
   let cardString = "";
   for (let i in cardsToShow){
-    cardString = i.suit+i.number;
+    cardString = i.suit+i.number.toString();
   }
   cardsElem.textContent = "Cards: " + cardString;
   sumElem.textContent = "Sum: " + sum;
+
 }
 
 function fillDealerDeck(){
@@ -108,6 +109,7 @@ function sumCards(cards){
 
 function hit(){    //ask for another card
     
+    clearLines()
     drawACard();
     messageElem1.textContent = "Here's your new card...";
     sum = sumCards(inHandCards);
