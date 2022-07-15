@@ -1,9 +1,16 @@
+const cardNums =["A","2","3","4","5","6","7","8","9","10","J","Q","K"];  
+const suits = ["Heart", "Diamond", "Ace", "Clover"]
+
+const valuesForCards = [11,2,3,4,5,6,7,8,9,10,11,12,13];
+
 let sum = 0;
 let dealerDeck = [];
 
 let inHandCards = [];
-let ronda = 1;
-let Earned = 1000;
+let acesInHand = 0;
+let Earned = 0;
+
+
 
 //let age = 30;
 //--change
@@ -14,7 +21,8 @@ let messageElem3 = document.getElementById("message3");
 let messageElem4 = document.getElementById("message4");
 let messageElem5 = document.getElementById("message5");
 let cardsElem    = document.getElementById("cards-elem");
-let sumElem      = document.querySlector(".sum-elem");
+let sumElem      = document.getElementById("sum-elem");
+let button1      = document.getElementById("button1");
 
 
 class Card{
@@ -55,15 +63,15 @@ function admitToClub(){
 function showCards(cardsToShow){
   let cardString = "";
   for (let i in cardsToShow){
-    cardString = cardString + ", "+ i.suit+i.number;
+    cardString = i.suit+i.number;
   }
-  cardsElem.textContent = cardString;
-  sumElem.textContent = sum;
+  cardsElem.textContent = "Cards: " + cardString;
+  sumElem.textContent = "Sum: " + sum;
 }
 
 function fillDealerDeck(){
   for (let i in suits){
-    for (let j in cardNumbers){
+    for (let j in cardNums){
       for (let k in valuesForCards){
         let cardX = new Card(i,j,k);
         dealerDeck.push(cardX);
@@ -80,6 +88,23 @@ function drawACard(){
   inHandCards.push(selectedCard);
 }
 
+function addCardValue(card){
+  if (acesInHand >= 1){
+    var thisCardValue = card.value;
+  } else if (card.number==="A"){
+    thisCardValue = 1;
+    acesInHand += 1;
+  }
+  else{thisCardValue = card.value;}
+  
+  sum += thisCardValue;
+}
+
+function sumCards(cards){
+  cards.forEach(addCardValue);
+  return sum;
+}
+
 
 function hit(){    //ask for another card
     
@@ -92,6 +117,15 @@ function hit(){    //ask for another card
 
     check();
 
+}
+
+function stand(){
+
+  drawACard();
+  sum = sumCards(inHandCards);
+
+  cardsElem.textContent = "Cards in hand: " + showCards(inHandCards);
+  sumElem.textContent = "Sum: " + sum.toString;
 }
 
 
@@ -119,38 +153,43 @@ function check(){
   messageElem1.textContent = message;
 }
 
+function clearLines(){
+  messageElem1.textContent = "";
+  messageElem2.textContent = "";
+  messageElem3.textContent = "";
+  messageElem4.textContent = "";
+  messageElem5.textContent = "";
 
-function stand(){
-
-  drawACard();
-  sum = sumCards(inHandCards);
-
-  cardsElem.textContent = "Cards in hand: " + showCards(inHandCards);
-  sumElem.textContent = "Sum: " + sum.toString;
 }
 
 
-function startGame(){
 
+function start(){
+  
   messageElem1.textContent = "You'll begin with 2 random cards, then you have to decide if you\
   draw 1 more each time."
   messageElem2.textContent = "You win only if your cards sum up between 18 and 21, \
   otherwise you lose."
   messageElem3.textContent =  "First time an Ace card appears it is going to get value 11"
-  messageElem4.textContent = "Int the other appeareances it will be 1.";
+  messageElem4.textContent = "In the next appeareances it will be 1.";
   messageElem5.textContent = "Let's play, Good luck!";
+  //button1.name = "Got it!";
+  //startGame();
+}
   
-  sumElem.textContent = sum;
-
+function startGame(){
+  clearLines();
   fillDealerDeck();
+  sumElem.textContent = dealerDeck[1].value;
   drawACard();
   drawACard();
-  showCards();
+
+  showCards(inHandCards);
   check();  
 }
 
 
 //let data = getPlayerData();
-createPlayer("Carl", 56);
-startGame();
+//createPlayer("Carl", 56);
+//startGame();
 //check();
